@@ -1,7 +1,3 @@
-/*
--operations for adding, editing, and removing notes
--should not have interactions with DOM
-*/
 
 import Note from "./Note.js";
 
@@ -35,7 +31,7 @@ class NotesWall {
     // Edit a note
     editNote(oldText, newText) {
         const index = this.notes.findIndex((n) => oldText === n.text);
-        if (index !== -1) {  // THIS STATEMENT WAS THE PROBLEM SINCE IT WASN'T FILTERING IT OUT PROPERLY I WASN'T CHECKING THE INDEX BUT INSTEAD THE ARRAY VALUE
+        if (index !== -1) {  // THIS STATEMENT WAS THE PROBLEM OMG SINCE IT WASN'T FILTERING STUFF OUT PROPERLY; I WASN'T CHECKING THE INDEX BUT INSTEAD THE ARRAY VALUE
             this.notes[index].text = newText;
         }
     }

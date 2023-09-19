@@ -1,8 +1,3 @@
-/*
--handles main application initial loading and event handlers
--notes should be displayed as sticky notes on a wall (a grid layout) - will probs need to createElement and add a bit of tailwind styling
--maybe have a counter in the arrow function when double click on textarea (or is it div?)
-*/
 
 import NotesWall from "./NotesWall.js";
 
@@ -29,7 +24,7 @@ class StickyNotesApp {
             const noteText = document.createElement("div");
             noteText.className = "p-4 note-text";
             noteText.textContent = this.wall.getNote(k).text;
-            noteText.style.whiteSpace = "pre";
+            noteText.style.whiteSpace = "pre";  // preserve whitespace in the note
             // textarea for editing
             const noteTextArea = document.createElement("textarea");
             noteTextArea.className = "absolute top-0 left-0 hidden w-full h-full p-4 transition-transform transform bg-yellow-300 shadow-xl resize-none outline-rose-700 outline-offset-0 note-edit note hover:scale-105";
@@ -57,12 +52,13 @@ class StickyNotesApp {
 
     // Handle if user clicks on note to delete or edit the note
     handleNoteClick(event) {
-        if (event.target.textContent === "🗑"){
+        if (event.target.textContent === "🗑"){  // deleting a note
             this.wall.deleteNote(event.currentTarget.innerText.slice(2).trim());
             this.renderNotes();
         }
+
         this.clickCount++;
-        if (this.clickCount === 2) {
+        if (this.clickCount === 2) {  // editing a note
             this.clickCount = 0;
             if (event.target.classList.contains("note-text")) {
                 const oldText = event.target.textContent;
@@ -70,7 +66,7 @@ class StickyNotesApp {
                 let noteTextArea = event.currentTarget.querySelector(".note-edit");
                 noteTextArea.classList.remove("hidden");
                 noteTextArea.addEventListener("keydown", this.handleEditNoteEnter.bind(this, oldText))  // this is how to pass arguments with bind and addEventListener 
-                document.getElementById("notes-wall").addEventListener("click", this.handleEditNoteClick.bind(this, oldText, event.currentTarget.querySelector(".note-edit")));
+                document.getElementsByTagName("html")[0].addEventListener("click", this.handleEditNoteClick.bind(this, oldText, event.currentTarget.querySelector(".note-edit")));
             }
         }
     }

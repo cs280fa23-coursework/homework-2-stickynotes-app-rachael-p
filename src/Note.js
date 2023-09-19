@@ -1,6 +1,3 @@
-/*
--each note should have a text and a unique ID 
-*/
 
 class Note {
     static ID = 1;
@@ -9,8 +6,9 @@ class Note {
         this.text = text;
         this.id = Note.ID++;
     }
-
-
 }
 
 export default Note;
+
+
+// also should be able to click outside of text area too to save edits
