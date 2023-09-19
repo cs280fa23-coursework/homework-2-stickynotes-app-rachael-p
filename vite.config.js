@@ -1,5 +1,5 @@
 import { defineConfig } from "vite";
 
 export default defineConfig({
-  base: "/hw2/",
+  base: "/homework-2-stickynotes-app-rachael-p/",
 });
