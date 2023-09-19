@@ -65,8 +65,17 @@ class StickyNotesApp {
                 event.target.classList.add("hidden");
                 let noteTextArea = event.currentTarget.querySelector(".note-edit");
                 noteTextArea.classList.remove("hidden");
-                noteTextArea.addEventListener("keydown", this.handleEditNoteEnter.bind(this, oldText))  // this is how to pass arguments with bind and addEventListener 
+                noteTextArea.addEventListener("keydown", this.handleEditNoteEnter.bind(this, oldText));  // this is how to pass arguments with bind and addEventListener 
                 document.getElementsByTagName("html")[0].addEventListener("click", this.handleEditNoteClick.bind(this, oldText, event.currentTarget.querySelector(".note-edit")));
+            }
+            else if (event.target.matches(".note") && !event.target.classList.contains("note-edit")) {
+                console.log(event.target)
+                const oldText = event.target.querySelector(".note-text").textContent;
+                event.target.querySelector(".note-text").classList.add("hidden");
+                let noteTextArea = event.target.querySelector(".note-edit");
+                noteTextArea.classList.remove("hidden");
+                noteTextArea.addEventListener("keydown", this.handleEditNoteEnter.bind(this, oldText));
+                document.getElementsByTagName("html")[0].addEventListener("click", this.handleEditNoteClick.bind(this, oldText, event.target.querySelector(".note-edit")));
             }
         }
     }
