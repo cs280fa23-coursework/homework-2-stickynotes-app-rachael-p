@@ -10,7 +10,6 @@ class StickyNotesApp {
     constructor() {
         this.wall = new NotesWall();
         this.clickCount = 0;
-        this.editClick = false;
     }
 
     // Render the sticky notes 
@@ -68,11 +67,10 @@ class StickyNotesApp {
             if (event.target.classList.contains("note-text")) {
                 const oldText = event.target.textContent;
                 event.target.classList.add("hidden");
-                const noteTextArea = event.currentTarget.querySelector(".note-edit");
+                let noteTextArea = event.currentTarget.querySelector(".note-edit");
                 noteTextArea.classList.remove("hidden");
-                this.editClick = false;
-                noteTextArea.addEventListener("keydown", this.handleEditNoteEnter.bind(this, oldText))  // this is how to pass arguments with bind and addEventListener  
-                document.getElementById("notes-wall").addEventListener("click", this.handleEditNoteClick.bind(this, oldText, noteTextArea));
+                noteTextArea.addEventListener("keydown", this.handleEditNoteEnter.bind(this, oldText))  // this is how to pass arguments with bind and addEventListener 
+                document.getElementById("notes-wall").addEventListener("click", this.handleEditNoteClick.bind(this, oldText, event.currentTarget.querySelector(".note-edit")));
             }
         }
     }
@@ -89,11 +87,10 @@ class StickyNotesApp {
 
     // Process editing a note when click outside the note
     handleEditNoteClick(oldText, noteTextArea, event) {
-        if (!(event.target.matches(".note,.note-text,.note-edit,delete-btn")) && this.editClick === false){
+        if (!(event.target.matches(".note,.note-text,.note-edit,delete-btn"))){
+            this.clickCount = 0;
             let newText = noteTextArea.value.trim();
-            console.log(newText)
             this.wall.editNote(oldText, newText);
-            this.editClick = true;
             this.renderNotes();
         }
     }
@@ -106,4 +103,4 @@ class StickyNotesApp {
 
 export default StickyNotesApp;
 
-// if reading properties of undefined, usually it's because you have to bind this
+// if reading properties of undefined, usually it's because you have to bind "this"
