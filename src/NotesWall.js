@@ -31,7 +31,7 @@ class NotesWall {
     // Edit a note
     editNote(oldText, newText) {
         const index = this.notes.findIndex((n) => oldText === n.text);
-        if (index !== -1) {  // THIS STATEMENT WAS THE PROBLEM OMG SINCE IT WASN'T FILTERING STUFF OUT PROPERLY; I WASN'T CHECKING THE INDEX BUT INSTEAD THE ARRAY VALUE
+        if (index !== -1) {  
             this.notes[index].text = newText;
         }
     }

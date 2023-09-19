@@ -9,6 +9,3 @@ class Note {
 }
 
 export default Note;
-
-
-// also should be able to click outside of text area too to save edits
